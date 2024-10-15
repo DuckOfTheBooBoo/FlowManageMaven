@@ -1,0 +1,36 @@
+/** @format */
+
+body {
+	background-image: url("background.svg");
+	width: 100dvw;
+	height: 100dvh;
+	display: flex;
+	background-color: #ffe5f3;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.col-md-6 h2 {
+	display: flex;
+	color: #000;
+	font-size: 2.5rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.next-page {
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+}
+
+.next-page a {
+	text-decoration: none;
+	text-transform: capitalize;
+	color: #bb9cc0;
+}

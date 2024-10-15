@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" integrity="sha512-34s5cpvaNG3BknEWSuOncX28vz97bRI59UnVtEEpFX536A7BtZSJHsDyFoCl8S7Dt2TPzcrCEoHBGeM4SUBDBw==" crossorigin="anonymous" referrerpolicy="no-referrer"></link>
+        <link rel="stylesheet" href="static/styles/task-form.css" />
+        <title>Task Form</title>
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="project_id" value="#{taskBean.projectId}" />
+            <f:viewParam name="task_id" value="#{taskBean.taskId}" />
+            <f:event type="preRenderView" listener="#{taskBean.init}" />
+        </f:metadata>
+        
+        <div class="side-navigation d-flex flex-column">
+            <a href="" class="d-block">
+                <i class="bi bi-flower1"></i>
+            </a>
+
+            <div class="page-nav">
+                <h:form styleClass="d-flex flex-column gap-2">
+                    <h:commandLink action="#{navigationBean.showPage}">
+                        <f:param name="page" value="dashboard"/>
+                        <i class="d-block bi bi-house-door-fill text-center"></i>
+                    </h:commandLink>
+                    <h:commandLink action="#{navigationBean.showPage}">
+                        <f:param name="page" value="projects"/>
+                        <i class="d-block bi bi-file-earmark-text-fill"></i>
+                    </h:commandLink>
+                </h:form>
+            </div>
+
+            <h:form>
+                <h:commandLink styleClass="d-block" action="#{authBean.logout}">
+                    <i class="bi bi-box-arrow-right"></i>
+                </h:commandLink>
+            </h:form>
+        </div>
+
+      <!-- MAIN BODY -->
+      <h:form id="task-form">
+        <div class="main-body">
+          <div class="main">
+              <h3>#{taskBean.taskId == null ? 'New task' : 'Edit task'}</h3>
+            <div class="mb-3" id="title-field">
+              <label for="taskTitle" class="form-label fs-4 fw-semibold"
+                >Title of Task</label
+              >
+              <h:inputText
+                styleClass="form-control"
+                id="taskTitle"
+                value="#{taskBean.taskTitle}"
+                  >
+                    <f:validateLength minimum="1" maximum="255" />
+              </h:inputText>
+              <div id="titleHelp" class="form-text">
+                This will be your task's title.
+              </div>
+              <h:message for="taskTitle" styleClass="text-danger" />
+            </div>
+            <div class="mb-3">
+              <label for="taskDescription" class="form-label fs-4 fw-semibold"
+                >Description</label
+              >
+              <h:inputTextarea
+                styleClass="form-control"
+                id="taskDescription"
+                rows="10"
+                value="#{taskBean.taskDescription}"
+                  >
+                    <f:validateLength minimum="1"/>
+              </h:inputTextarea>
+              <div id="descHelp" class="form-text">
+                This will be your task's description.
+              </div>
+              <h:message for="taskDescription" styleClass="text-danger" />
+
+            </div>
+          </div>
+        </div>
+
+        <div class="attributes-bar">
+          <div class="top">
+            <h5>Task Attributes</h5>
+            <div class="mb-3">
+              <label for="taskPriority">Priority:</label>
+              <h:selectOneMenu value="#{taskBean.priority}" id="priority">
+                <f:selectItems var="priority" value="#{taskBean.priorityList}" itemLabel="#{priority.label}" itemValue="#{priority.value}" /> 
+              </h:selectOneMenu>
+            </div>
+            <div class="mb-3">
+              <label for="taskAssignee">Assignee:</label>
+              <h:selectOneMenu value="#{taskBean.assigneeId}" id="taskAssignee" required="true" requiredMessage="Please select a user to assign">
+                  <f:selectItems value="#{taskBean.projectUsers}" var="user" itemLabel="#{utilBean.getFullName(user)}" itemValue="#{user.id}" /> 
+              </h:selectOneMenu>
+              <h:message for="taskAssignee" styleClass="text-danger" />
+
+            </div>
+            <div class="mb-3 d-flex flex-column gap-2">
+              <label for="projectDeadline">Deadline:</label>
+              <h:inputText id="projectDeadline" styleClass="form-control datepicker"
+                           value="#{taskBean.deadline}" converterMessage="Enter deadline in MM/DD/YY format"
+                required="true" requiredMessage="You must enter the project's deadline">
+                <f:convertDateTime pattern="MM/dd/yyyy" type="date"/>
+              </h:inputText>
+              <h:message for="projectDeadline" styleClass="text-danger"/>
+            </div>
+          </div>
+          <div class="attribute-action">
+              <h:commandButton value="#{taskBean.taskId == null ? 'Submit' : 'Save'}" styleClass="btn submit-btn" id="submit-btn" action="#{taskBean.addNewTask}"/>
+              <button id="cancel-btn" type="" class="btn fw-semibold" onclick="window.history.back(); return false;">Cancel</button>
+            <button id="reset-btn" type="" class="btn fw-semibold text-danger">Reset</button>
+          </div>
+        </div>
+      </h:form>
+      <h:message for="task-form" />
+
+      <script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"
+      ></script>
+      <script type="text/javascript">
+          $(document).ready(function () {
+          $('.datepicker').datepicker({
+          });
+          });
+      </script>
+      <script>
+          const cancelBtn = document.querySelector("#cancel-btn");
+          const resetBtn = document.querySelector("#reset-btn");
+          
+          
+          resetBtn.addEventListener("click", (e) => {
+            const taskForm = document.querySelector("#task-form");
+            const fields = taskForm.querySelectorAll('input, textarea');
+    
+            fields.forEach(field => {
+                if (field.type !== 'button' &amp;&amp; field.type !== 'submit' &amp;&amp; 
+                    field.type !== 'reset' &amp;&amp; field.type !== 'hidden') {
+                    field.value = '';
+
+                    if (field.type === 'checkbox' || field.type === 'radio') {
+                        field.checked = false;
+                    }
+                }
+            });
+          })
+      </script>
+    </h:body>
+</html>
+

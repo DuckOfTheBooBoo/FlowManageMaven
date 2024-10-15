@@ -1,0 +1,29 @@
+/** @format */
+
+body {
+	background-image: url("background.svg");
+	width: 100dvw;
+	height: 100dvh;
+	display: flex;
+}
+
+/* #image-contact {
+	width: 100px;
+	height: 100%;
+	overflow: hidden;
+}
+
+.full-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	margin-right: 0;
+	padding-bottom: 0;
+} */
+
+.full-img {
+	display: absolute;
+	right: 0;
+	top: 0;
+	height: 100vh;
+}

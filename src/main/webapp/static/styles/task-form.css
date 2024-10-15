@@ -1,0 +1,120 @@
+body {
+    background-image: url("../assets/background.svg");   
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+}
+
+.side-navigation {
+    width: 110px;
+    min-height: 100dvh;
+    background-color: #FED9ED;
+    justify-content: space-around;
+    box-shadow: 143px 0px 40px 0px rgba(0, 0, 0, 0.00), 92px 0px 37px 0px rgba(0, 0, 0, 0.01), 52px 0px 31px 0px rgba(0, 0, 0, 0.05), 23px 0px 23px 0px rgba(0, 0, 0, 0.09), 6px 0px 13px 0px rgba(0, 0, 0, 0.10);
+    position: sticky;
+}
+
+.side-navigation a {
+    width: 100%;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 9px 0;
+    color: #BB9CC0;
+    opacity: 70%;
+}
+
+.side-navigation a:hover {
+    opacity: 100%;
+}
+
+.side-navigation {
+	width: 110px;
+	height: 100dvh;
+	background-color: #fed9ed;
+	justify-content: space-around;
+	box-shadow: 143px 0px 40px 0px rgba(0, 0, 0, 0),
+		92px 0px 37px 0px rgba(0, 0, 0, 0.01), 52px 0px 31px 0px rgba(0, 0, 0, 0.05),
+		23px 0px 23px 0px rgba(0, 0, 0, 0.09), 6px 0px 13px 0px rgba(0, 0, 0, 0.1);
+	overflow: auto;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 5%;
+}
+
+.side-navigation a {
+	width: 100%;
+	border-radius: 50px;
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: bold;
+	padding: 9px 0;
+	color: #bb9cc0;
+	opacity: 70%;
+}
+
+.page-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-body {
+    width: 100%;
+    height: 100%;
+    padding: 25px 59px;
+}
+
+.top-header a {
+    font-size: 1rem;
+    color: #D99BFF;
+    background-color: #FFF6F6;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+#title-field {
+    width: 50%;
+}
+
+form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.attributes-bar {
+    width: 50%;
+    background-color: #FBEBF4;
+    padding: 4.5rem 37px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.attribute-action {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 5rem;
+    grid-row-gap: 2px;
+}
+
+input.submit-btn {
+    grid-area: 1 / 1 / 2 / 3;
+    background-color: #E7BCDE;
+}
+
+#cancel-btn {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+#reset-btn {
+    grid-area: 2 / 2 / 3 / 3;
+}
