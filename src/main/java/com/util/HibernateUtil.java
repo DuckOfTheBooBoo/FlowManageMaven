@@ -1,24 +1,19 @@
 package com.util;  
 import org.hibernate.SessionFactory;  
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;  
 import org.hibernate.cfg.Configuration;  
 import org.hibernate.service.ServiceRegistry;  
-public class HibernateUtil  
-{  
+
+public class HibernateUtil {  
     //Annotation based configuration  
     private static SessionFactory sessionFactory;  
-    private static SessionFactory buildSessionFactory()  
-    {  
-        try  
-        {  
-            // Create the SessionFactory from hibernate.cfg.xml  
-            Configuration configuration = new Configuration();  
-            configuration.configure("/hibernate.cfg.xml");  
-            System.out.println("Hibernate Annotation Configuration loaded");  
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();  
-            System.out.println("Hibernate Annotation serviceRegistry created");  
-            sessionFactory = configuration.buildSessionFactory(serviceRegistry);  
-            return sessionFactory;  
+    private static SessionFactory buildSessionFactory() {  
+        try {           
+            Configuration configure = new Configuration();
+            configure.configure("hibernate.cfg.xml");
+            StandardServiceRegistry registry = new StandardServiceRegistryBuilder().applySettings(configure.getProperties()).build();
+            return configure.buildSessionFactory(registry);
         }  
         catch (Throwable ex)  
         {  
