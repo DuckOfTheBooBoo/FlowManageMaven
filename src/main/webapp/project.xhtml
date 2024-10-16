@@ -162,12 +162,12 @@
                                 <h:commandButton styleClass="btn btn-danger btn-sm" value="Delete" 
                                                  rendered="#{viewProjectBean.loggedInRole() == 'manager'}" 
                                                  action="#{viewProjectBean.deleteTask(task.id)}" id="deleteBtn">
-                                    <f:ajax execute="@form" render="taskForm" />
+                                    <f:ajax execute="@form" render=":taskForm" />
                                 </h:commandButton>
                                 <h:commandButton styleClass="btn btn-success btn-sm" value="Set Completed" 
                                                  rendered="#{task.projectWorker.user.id == viewProjectBean.authBean.loggedInUser.id &amp;&amp; task.status.id == 1}" 
                                                  action="#{viewProjectBean.completeTask(task.id)}" id="completeBtn">
-                                    <f:ajax execute="@form" render="taskForm" />
+                                    <f:ajax execute="@form" render=":taskForm" />
                                 </h:commandButton>
                             </h:panelGroup>
                         </h:column>
@@ -210,7 +210,7 @@
                                     <f:param name="project_id" value="#{pw.project.id}" />
                                 </h:link>
                                 <h:commandButton value="Delete" styleClass="btn btn-danger" action="#{viewProjectBean.deleteMember(pw.user.id)}">
-                                    <f:ajax execute="@form" render="peopleForm" />
+                                    <f:ajax execute="@form" render=":peopleForm" />
                                 </h:commandButton>
                             </h:panelGroup>
                         </h:column>

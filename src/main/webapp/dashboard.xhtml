@@ -56,7 +56,7 @@
                     </div>
                     <div class="grid">
                         <ui:repeat value="#{projectBean.projectList}" var="project">
-                            <h:panelGroup rendered="#{project.status.id == 1}" styleClass="project-card">
+                            <h:panelGroup layout="block" rendered="#{project.status.id == 1}" styleClass="project-card">
                                 <div class="project-head">
                                     <h:outputText value="#{project.deadline}">
                                         <f:convertDateTime pattern="d, MMMM yyyy" />

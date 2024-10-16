@@ -81,7 +81,7 @@
                                     <f:param name="project_id" value="#{project.id}" />
                                 </h:link>
                                 <h:commandButton styleClass="btn btn-sm btn-danger" action="#{projectBean.deleteProject(project.id)}" value="Delete" rendered="#{projectBean.isAuthorized(project)}">
-                                    <f:ajax execute="@form" render="projects-form" />
+                                    <f:ajax execute="@form" render=":projects-form" />
                                 </h:commandButton>
                             </h:panelGroup>
                         </h:column>
