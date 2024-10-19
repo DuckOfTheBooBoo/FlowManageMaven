@@ -5,6 +5,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 @Named
 @RequestScoped
@@ -14,7 +15,15 @@ public class RegistrationBean {
     private String lastName;
     private String email;
     private String password;
+    private UserService userService;
 
+    @Inject
+    public RegistrationBean(UserService userService) {
+        this.userService = userService;
+    }
+    
+    public RegistrationBean() {}
+    
     // Getters and Setters
     public String getFirstName() {
         return firstName;
@@ -50,9 +59,7 @@ public class RegistrationBean {
 
     // Registration action method
     public String register() {
-        // Add business logic here for registration
-        UserService us = new UserService();
-        boolean isSuccessful = us.createUser(firstName, lastName, email, password);
+        boolean isSuccessful = userService.createUser(firstName, lastName, email, password);
         
         if (isSuccessful) {
             return "login?faces-redirect=true";
