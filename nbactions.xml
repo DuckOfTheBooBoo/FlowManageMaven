@@ -72,4 +72,34 @@
                 <skipTests>true</skipTests>
             </properties>
         </action>
+        <action>
+            <actionName>debug.test.single</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>process-test-classes</goal>
+                <goal>surefire:test</goal>
+            </goals>
+            <properties>
+                <test>${packageClassName}</test>
+                <forkMode>once</forkMode>
+                <maven.surefire.debug>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</maven.surefire.debug>
+                <jpda.listen>true</jpda.listen>
+            </properties>
+        </action>
+        <action>
+            <actionName>CUSTOM-verify</actionName>
+            <displayName>verify</displayName>
+            <goals>
+                <goal>verify</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-test</actionName>
+            <displayName>test</displayName>
+            <goals>
+                <goal>test</goal>
+            </goals>
+        </action>
     </actions>
