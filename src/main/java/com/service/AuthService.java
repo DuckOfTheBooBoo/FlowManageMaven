@@ -7,12 +7,13 @@ package com.service;
 import com.dao.UserDAO;
 import com.util.HashUtil;
 import com.model.pojo.User;
+import java.io.Serializable;
 
 /**
  *
  * @author pc
  */
-public class AuthService {
+public class AuthService implements Serializable {
     private final UserDAO userDAO = new UserDAO();
     
     public User authenticate(String email, String password) {
