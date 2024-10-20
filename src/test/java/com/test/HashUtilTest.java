@@ -12,10 +12,10 @@ import static org.junit.Assert.*;
  *
  * @author pc
  */
-public class HashTest {
+public class HashUtilTest {
     private static HashUtil hashUtil;
     
-    public HashTest() {
+    public HashUtilTest() {
     }
     
     @BeforeClass
