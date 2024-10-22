@@ -42,14 +42,27 @@ public class TaskBean implements java.io.Serializable {
     private String taskDescription;
     private Date deadline;
     private Integer assigneeId;
-    private ProjectService ps;
-    private TaskService ts;
     private Integer priority;
-    
+    private List<Object> priorityList;
+
+    @Inject
+    private ProjectService ps;
+
+    @Inject
+    private TaskService ts;
+
     @Inject
     private AuthBean authbean;
-    private List<Object> priorityList;
-    
+
+    private FacesContext facesContext; // only used in testing
+
+    public TaskBean(AuthBean authbean, TaskService ts, ProjectService ps, FacesContext fc) {
+        this.authbean = authbean;
+        this.ts = ts;
+        this.ps = ps;
+        this.facesContext = fc;
+    }
+
     /**
      * Creates a new instance of TaskBean
      */
@@ -62,9 +75,7 @@ public class TaskBean implements java.io.Serializable {
         priorityList.add(new Priority("Low", 1));
         priorityList.add(new Priority("Medium", 2));
         priorityList.add(new Priority("High", 3));
-        ps = new ProjectService();
-        ts = new TaskService();
-        
+
         if (projectId != null) {
             this.project = ps.getProjectById(authbean.getLoggedInUser(), projectId);
         }
@@ -77,6 +88,13 @@ public class TaskBean implements java.io.Serializable {
             priority = this.task.getPriority();
             this.assigneeId = this.task.getProjectWorker().getUser().getId();
         }
+    }
+
+    private FacesContext facesContextWrapper() {
+        if (facesContext != null) {
+            return this.facesContext;
+        }
+        return FacesContext.getCurrentInstance();
     }
 
     public Integer getTaskId() {
@@ -182,11 +200,9 @@ public class TaskBean implements java.io.Serializable {
             return saveTask();
         }
         
-        FacesContext ctx = FacesContext.getCurrentInstance();
-        
         Date currentDate = new Date();
         if(!deadline.after(currentDate)) {
-            ctx.addMessage("projectDeadline", new FacesMessage("Deadline must be in the future"));
+            facesContextWrapper().addMessage("projectDeadline", new FacesMessage("Deadline must be in the future"));
             return null;
         }
         
@@ -199,12 +215,11 @@ public class TaskBean implements java.io.Serializable {
             }
         }
         
-        ctx.addMessage("task-form", new FacesMessage("Failed to add new task"));
+        facesContextWrapper().addMessage("task-form", new FacesMessage("Failed to add new task"));
         return null;
     }
     
     public String saveTask() {
-        FacesContext ctx = FacesContext.getCurrentInstance();
         User assignee = null;
         for (User user : getProjectUsers()) {            
             if (user.getId() == assigneeId) {
@@ -219,16 +234,19 @@ public class TaskBean implements java.io.Serializable {
             }
         }
         
-        ctx.addMessage("task-form", new FacesMessage("Failed to add new task"));
+        facesContextWrapper().addMessage("task-form", new FacesMessage("Failed to add new task"));
         return null;
     }
     
     public List<User> getProjectUsers() {
-        Set<ProjectWorker> pw = this.project.getProjectWorkers();
         List<User> workers = new ArrayList<>();
-        pw.stream().forEach((worker) -> {
-            workers.add(worker.getUser());
-        });
+        if (project != null) {
+            Set<ProjectWorker> pw = this.project.getProjectWorkers();
+        
+            pw.stream().forEach((worker) -> {
+                workers.add(worker.getUser());
+            });
+        }
         
         return workers;
     }
