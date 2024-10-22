@@ -23,7 +23,7 @@ CREATE TABLE `user` (
 	id INT AUTO_INCREMENT,
 	first_name VARCHAR(50) NOT NULL,
 	last_name VARCHAR(50),
-	email VARCHAR(100) NOT NULL UNIQUE,
+	email VARCHAR(100) NOT NULL,
 	password VARCHAR(60) NOT NULL,
 	PRIMARY KEY(id)
 );
