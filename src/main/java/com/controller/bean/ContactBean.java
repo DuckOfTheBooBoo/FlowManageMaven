@@ -34,9 +34,15 @@ public class ContactBean implements java.io.Serializable {
     private Integer userId;
     private ProjectWorker pw;
     private String userEmail;
-    private ProjectService ps;
+
+    private FacesContext facesContext;
+
+    @Inject
     private UserService us;
-    
+
+    @Inject
+    private ProjectService ps;
+
     @Inject
     private AuthBean authBean;
     
@@ -45,12 +51,17 @@ public class ContactBean implements java.io.Serializable {
      */
     public ContactBean() {
     }
-    
+
+    // Test constructor
+    public ContactBean(FacesContext facesContext, UserService us, ProjectService ps, AuthBean authBean) {
+        this.facesContext = facesContext;
+        this.us = us;
+        this.ps = ps;
+        this.authBean = authBean;
+    }
+
     @PostConstruct
     public void init() {
-        us = new UserService();
-        ps = new ProjectService();
-        
         if(authBean.getLoggedInUser() == null) {
             System.err.println("UNAUTHORIZED");
         }
@@ -83,7 +94,7 @@ public class ContactBean implements java.io.Serializable {
     public void setPw(ProjectWorker pw) {
         this.pw = pw;
     }
-    
+
     public User getTargetUser() {
         return targetUser;
     }
@@ -107,12 +118,18 @@ public class ContactBean implements java.io.Serializable {
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
-    
-    public String addUserToProject() {
-        FacesContext ctx = FacesContext.getCurrentInstance();
 
+    public FacesContext facesContextWrapper() {
+        if (this.facesContext != null) { // only happen in testing
+            return this.facesContext;
+        }
+
+        return FacesContext.getCurrentInstance();
+    }
+
+    public String addUserToProject() {
         if(userEmail == null || userEmail.isEmpty()) {
-            ctx.addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail field is empty.", null));
+            facesContextWrapper().addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail field is empty.", null));
             return null;
         }
         
@@ -125,14 +142,14 @@ public class ContactBean implements java.io.Serializable {
         if (searchUser != null) {
             for (ProjectWorker pw : project.getProjectWorkers()) {
                 if(pw.getUser().equals(searchUser)) {
-                    ctx.addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "User already existed in the project.", null));
+                    facesContextWrapper().addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "User already existed in the project.", null));
                     return null;
                 }
             }
             
             this.targetUser = searchUser;
         } else {
-            ctx.addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "User doesn't exists.", null));
+            facesContextWrapper().addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "User doesn't exists.", null));
             return null;
         }
         
@@ -140,16 +157,15 @@ public class ContactBean implements java.io.Serializable {
         if (isSuccessful) {
             return "project?faces-redirect=true&amp;project_id="+projectId;
         }
-        ctx.addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to add user to the project.", null));
+        facesContextWrapper().addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to add user to the project.", null));
         return null;
     }
     
     private String updateWorker() {
         pw.setRole(role);
-        FacesContext ctx = FacesContext.getCurrentInstance();
         boolean isSuccessful = ps.updateProjectWorker(pw);
         if (!isSuccessful) {
-            ctx.addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to add user to the project.", null));
+            facesContextWrapper().addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Failed to add user to the project.", null));
             return null;
         }
         
@@ -195,4 +211,14 @@ public class ContactBean implements java.io.Serializable {
     public void setAuthBean(AuthBean authBean) {
         this.authBean = authBean;
     }
+
+    public FacesContext getFacesContext() {
+        return facesContext;
+    }
+
+    public void setFacesContext(FacesContext facesContext) {
+        this.facesContext = facesContext;
+    }
+
+
 }
