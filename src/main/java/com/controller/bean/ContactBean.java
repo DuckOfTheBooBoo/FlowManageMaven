@@ -10,6 +10,8 @@ import com.model.pojo.ProjectWorker;
 import com.model.pojo.User;
 import com.service.ProjectService;
 import com.service.UserService;
+import com.util.Generated;
+
 import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
@@ -49,6 +51,7 @@ public class ContactBean implements java.io.Serializable {
     /**
      * Creates a new instance of ContactBean
      */
+    @Generated
     public ContactBean() {
     }
 
@@ -79,46 +82,57 @@ public class ContactBean implements java.io.Serializable {
         }
     }
 
+    @Generated
     public Integer getUserId() {
         return userId;
     }
 
+    @Generated
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
+    @Generated
     public ProjectWorker getPw() {
         return pw;
     }
 
+    @Generated
     public void setPw(ProjectWorker pw) {
         this.pw = pw;
     }
 
+    @Generated
     public User getTargetUser() {
         return targetUser;
     }
 
+    @Generated
     public void setTargetUser(User targetUser) {
         this.targetUser = targetUser;
     }
 
+    @Generated
     public String getRole() {
         return role;
     }
 
+    @Generated
     public void setRole(String role) {
         this.role = role;
     }
 
+    @Generated
     public Integer getProjectId() {
         return projectId;
     }
 
+    @Generated
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
+    @Generated
     public FacesContext facesContextWrapper() {
         if (this.facesContext != null) { // only happen in testing
             return this.facesContext;
@@ -172,50 +186,62 @@ public class ContactBean implements java.io.Serializable {
         return "project?faces-redirect=true&amp;project_id="+projectId;
     }
 
+    @Generated
     public String getUserEmail() {
         return userEmail;
     }
 
+    @Generated
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
 
+    @Generated
     public Project getProject() {
         return project;
     }
 
+    @Generated
     public void setProject(Project project) {
         this.project = project;
     }
 
+    @Generated
     public ProjectService getPs() {
         return ps;
     }
 
+    @Generated
     public void setPs(ProjectService ps) {
         this.ps = ps;
     }
 
+    @Generated
     public UserService getUs() {
         return us;
     }
 
+    @Generated
     public void setUs(UserService us) {
         this.us = us;
     }
 
+    @Generated
     public AuthBean getAuthBean() {
         return authBean;
     }
 
+    @Generated
     public void setAuthBean(AuthBean authBean) {
         this.authBean = authBean;
     }
 
+    @Generated
     public FacesContext getFacesContext() {
         return facesContext;
     }
 
+    @Generated
     public void setFacesContext(FacesContext facesContext) {
         this.facesContext = facesContext;
     }
