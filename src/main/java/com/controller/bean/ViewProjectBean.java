@@ -7,6 +7,8 @@ import com.model.pojo.Task;
 import com.model.pojo.User;
 import com.service.ProjectService;
 import com.service.TaskService;
+import com.util.Generated;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -56,6 +58,7 @@ public class ViewProjectBean implements java.io.Serializable {
     /**
      * Creates a new instance of ViewProjectBean
      */
+    @Generated
     public ViewProjectBean() {
     }
     
@@ -148,6 +151,7 @@ public class ViewProjectBean implements java.io.Serializable {
         return tasks;
     }
 
+    @Generated
     public void setTaskList(List<Task> taskList) {
         this.taskList = taskList;
     }
@@ -156,35 +160,43 @@ public class ViewProjectBean implements java.io.Serializable {
     public List<Task> getUserOnGoingTaskList() {
         return (List<Task>) getTaskList().stream().filter(t -> t.getProjectWorker().getUser().getId() == authBean.getLoggedInUser().getId() && t.getStatus().getId() == 1).collect(Collectors.toList());
     }
-    
+
+    @Generated
     public AuthBean getAuthBean() {
         return authBean;
     }
 
+    @Generated
     public void setAuthBean(AuthBean authBean) {
         this.authBean = authBean;
     }
-    
+
+    @Generated
     public Integer getProjectId() {
         return projectId;
     }
 
+    @Generated
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
+    @Generated
     public Project getProject() {
         return project;
     }
 
+    @Generated
     public void setProject(Project project) {
         this.project = project;
     }
 
+    @Generated
     public ProjectService getProjectService() {
         return projectService;
     }
 
+    @Generated
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
     }
@@ -207,20 +219,19 @@ public class ViewProjectBean implements java.io.Serializable {
         return ts.size();
     }
 
+    @Generated
     public TaskService getTaskService() {
         return taskService;
     }
 
+    @Generated
     public void setTaskService(TaskService taskService) {
         this.taskService = taskService;
     }
-    
+
+    @Generated
     public void refreshTask() {
         this.taskList = getTaskList();
-    }
-    
-    public void updateTask(Task task) {
-        
     }
     
     public void completeTask(Integer taskId) {
@@ -259,10 +270,12 @@ public class ViewProjectBean implements java.io.Serializable {
         return FacesContext.getCurrentInstance();
     }
 
+    @Generated
     public FacesContext getFacesContext() {
         return facesContext;
     }
 
+    @Generated
     public void setFacesContext(FacesContext facesContext) {
         this.facesContext = facesContext;
     }
