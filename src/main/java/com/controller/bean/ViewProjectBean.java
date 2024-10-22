@@ -32,13 +32,27 @@ import javax.inject.Inject;
 public class ViewProjectBean implements java.io.Serializable {
     private Integer projectId;
     private Project project;
-    private ProjectService projectService;
-    private TaskService taskService;
     private List<Task> taskList;
-    
+    private FacesContext facesContext;
+
+    @Inject
+    private ProjectService projectService;
+
+    @Inject
+    private TaskService taskService;
+
+
     @Inject
     private AuthBean authBean;
-    
+
+    // Test only
+    public ViewProjectBean(AuthBean authBean, TaskService taskService, ProjectService projectService, FacesContext fc) {
+        this.authBean = authBean;
+        this.taskService = taskService;
+        this.projectService = projectService;
+        this.facesContext = fc;
+    }
+
     /**
      * Creates a new instance of ViewProjectBean
      */
@@ -47,10 +61,7 @@ public class ViewProjectBean implements java.io.Serializable {
     
     @PostConstruct
     public void init() {
-        this.projectService = new ProjectService();
-        this.taskService = new TaskService();
-        
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Map<String, String> params = facesContextWrapper().getExternalContext().getRequestParameterMap();
         String projectIdParam = params.get("project_id");
         
         if (projectIdParam != null) {
@@ -59,16 +70,16 @@ public class ViewProjectBean implements java.io.Serializable {
         }
     }
     
-    private void loadProject() {
+    public void loadProject() {
         if (authBean.getLoggedInUser() == null) {
-            FacesContext.getCurrentInstance().addMessage(null, 
+            facesContextWrapper().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "You're not logged in", null));
         }
         
         if(projectId != null) {
             this.project = projectService.getProjectById(authBean.getLoggedInUser(), projectId);
             if (this.project == null) {
-                FacesContext.getCurrentInstance().addMessage(null, 
+                facesContextWrapper().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Project not found", null));
             }
             
@@ -78,7 +89,7 @@ public class ViewProjectBean implements java.io.Serializable {
 
     public String getManager() {
         if (project == null) {
-            FacesContext.getCurrentInstance().addMessage(null, 
+            facesContextWrapper().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Project is null", null));
             return null;
         }
@@ -238,5 +249,21 @@ public class ViewProjectBean implements java.io.Serializable {
         if (pwu != null) {
             boolean isSuccessful = projectService.deleteUserFromProject(pwu);           
         }        
+    }
+
+    public FacesContext facesContextWrapper() {
+        if (facesContext != null) {
+            return this.facesContext;
+        }
+
+        return FacesContext.getCurrentInstance();
+    }
+
+    public FacesContext getFacesContext() {
+        return facesContext;
+    }
+
+    public void setFacesContext(FacesContext facesContext) {
+        this.facesContext = facesContext;
     }
 }

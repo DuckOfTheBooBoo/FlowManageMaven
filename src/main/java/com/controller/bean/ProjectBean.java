@@ -43,8 +43,12 @@ public class ProjectBean implements java.io.Serializable {
     private List<Priority> priorityList;
     private List<Status> statusList;
     private List<Project> projectList;
-    private ProjectService ps = new ProjectService();
-    private StatusService ss = new StatusService();
+
+    @Inject
+    private ProjectService ps;
+
+    @Inject
+    private StatusService ss;
     
     @Inject
     private AuthBean authBean;  // Injected session-scoped bean
@@ -52,6 +56,12 @@ public class ProjectBean implements java.io.Serializable {
      * Creates a new instance of ProjectBean
      */
     public ProjectBean() {
+    }
+
+    public ProjectBean(AuthBean authBean, ProjectService ps, StatusService ss) {
+        this.authBean = authBean;
+        this.ps = ps;
+        this.ss = ss;
     }
     
     @PostConstruct
@@ -248,8 +258,6 @@ public class ProjectBean implements java.io.Serializable {
             System.err.println("Project is null");
             return null;
         }
-        
-        System.err.println(newProject);
         
         // And also this, but created project id is not found in this
         boolean isSuccessful = ps.addUserToProject(newProject, loggedUser, "manager");

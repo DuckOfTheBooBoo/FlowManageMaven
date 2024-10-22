@@ -40,6 +40,16 @@ public class Project  implements java.io.Serializable {
     public Project() {
     }
 
+    // Test
+    public Project(Project other) {
+        this.id = other.id;
+        this.status = other.status;
+        this.title = other.title;
+        this.overview = other.overview;
+        this.deadline = other.deadline;
+        this.priority = other.priority;
+        this.projectWorkers = new HashSet<ProjectWorker>(other.projectWorkers);
+    }
 	
     public Project(Status status, String title, String overview, Date deadline, int priority) {
         this.status = status;

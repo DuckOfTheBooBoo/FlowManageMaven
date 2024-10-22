@@ -67,13 +67,8 @@ public class ProjectBeanTest {
 
         // Dummy project init
         projects = new HashSet<Project>();
-        testProject = new Project();
+        testProject = new Project(onGoing, "test project", "test project description", Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()), 1);
         testProject.setId(1);
-        testProject.setStatus(onGoing);
-        testProject.setTitle("test project");
-        testProject.setOverview("test project description");
-        testProject.setPriority(1);
-        testProject.setDeadline(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         ProjectWorkerId pwId = new ProjectWorkerId(testUser.getId(), testProject.getId());
         ProjectWorker pw = new ProjectWorker(pwId, testProject, testUser, "manager");
