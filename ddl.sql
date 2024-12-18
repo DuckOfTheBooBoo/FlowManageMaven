@@ -19,25 +19,11 @@ CREATE TABLE project (
 	FOREIGN KEY (status_id) REFERENCES status(id)
 );
 
-CREATE TABLE task (
-	id INT AUTO_INCREMENT,
-	user_id INT NOT NULL,
-	project_id INT NOT NULL,
-	status_id INT NOT NULL DEFAULT 1,
-	title VARCHAR(255) NOT NULL,
-	description TEXT NOT NULL,
-	priority INT NOT NULL,
-	deadline DATE NOT NULL,
-	PRIMARY KEY (id),
-	FOREIGN KEY (user_id, project_id) REFERENCES project_worker(user_id, project_id),
-	FOREIGN KEY (status_id) REFERENCES status(id)
-);
-
 CREATE TABLE `user` (
 	id INT AUTO_INCREMENT,
 	first_name VARCHAR(50) NOT NULL,
 	last_name VARCHAR(50),
-	email VARCHAR(100) NOT NULL UNIQUE,
+	email VARCHAR(100) NOT NULL,
 	password VARCHAR(60) NOT NULL,
 	PRIMARY KEY(id)
 );
@@ -51,6 +37,19 @@ CREATE TABLE project_worker (
 	FOREIGN KEY (project_id) REFERENCES project(id)
 );
 
+CREATE TABLE task (
+	id INT AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	project_id INT NOT NULL,
+	status_id INT NOT NULL DEFAULT 1,
+	title VARCHAR(255) NOT NULL,
+	description TEXT NOT NULL,
+	priority INT NOT NULL,
+	deadline DATE NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (user_id, project_id) REFERENCES project_worker(user_id, project_id),
+	FOREIGN KEY (status_id) REFERENCES status(id)
+);
 
 INSERT INTO status (status) VALUES ("on-going");
 INSERT INTO status (status) VALUES ("done");
