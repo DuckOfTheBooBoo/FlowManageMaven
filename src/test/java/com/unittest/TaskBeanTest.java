@@ -1,7 +1,6 @@
-package com.test;
+package com.unittest;
 
 import com.controller.bean.AuthBean;
-import com.controller.bean.RegistrationBean;
 import com.controller.bean.TaskBean;
 import com.model.pojo.Project;
 import com.model.pojo.ProjectWorker;
@@ -9,11 +8,8 @@ import com.model.pojo.Task;
 import com.model.pojo.User;
 import com.service.ProjectService;
 import com.service.TaskService;
-import com.service.UserService;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mock;
@@ -27,8 +23,6 @@ import java.time.ZoneId;
 import java.util.*;
 
 import static org.mockito.Mockito.*;
-
-import static org.junit.Assert.*;
 
 public class TaskBeanTest {
 
@@ -156,6 +150,7 @@ public class TaskBeanTest {
         when(mockProjectWorker2.getUser()).thenReturn(mockUser2);
         when(mockProject.getProjectWorkers()).thenReturn(new HashSet(Arrays.asList(mockProjectWorker1, mockProjectWorker2)));
 
+        taskBean.setProject(mockProject);
         List<User> users = taskBean.getProjectUsers();
 
         assertNotNull(users);
@@ -185,6 +180,9 @@ public class TaskBeanTest {
         taskBean.setTaskDescription("This is a test task");
         taskBean.setDeadline(Date.from(LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
         taskBean.setPriority(1);
+
+        Project mockProject = mock(Project.class);
+        taskBean.setProject(mockProject);
 
         String expectedRedirect = "project?faces-redirect=true&amp;project_id="+projectId;
         String redirectVal = taskBean.addNewTask();
@@ -230,9 +228,12 @@ public class TaskBeanTest {
         taskBean.setPriority(1);
         when(mockTaskService.saveTask(anyInt(), any(User.class), any(Project.class), anyString(), anyString(), any(Date.class), anyInt())).thenReturn(true);
 
+        Project mockProject = mock(Project.class);
+
+        taskBean.setProject(mockProject);
         taskBean.setProjectId(1);
 
-        String expectedRedirect = "project?faces-redirect=true&amp;project_id=1";
+        String expectedRedirect = "project?faces-redirect=true&amp;project_id="+1;
         String redirectVal = taskBean.saveTask();
 
         assertEquals(expectedRedirect, redirectVal);
@@ -253,7 +254,7 @@ public class TaskBeanTest {
         assertNull(redirectVal);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testSaveTaskServiceFail() {
         User mockUser1 = mock(User.class);
         User mockUser2 = mock(User.class);

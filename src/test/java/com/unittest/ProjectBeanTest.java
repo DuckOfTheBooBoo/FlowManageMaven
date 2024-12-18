@@ -1,4 +1,4 @@
-package com.test;
+package com.unittest;
 
 import com.controller.bean.AuthBean;
 import com.controller.bean.ProjectBean;
@@ -8,7 +8,7 @@ import com.service.StatusService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.hamcrest.MatcherAssert.*;
+
 import static org.junit.Assert.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;

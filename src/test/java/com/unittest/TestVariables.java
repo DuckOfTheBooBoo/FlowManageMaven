@@ -1,4 +1,4 @@
-package com.test;
+package com.unittest;
 
 public class TestVariables {
     public static final String FIRST_NAME = "Test";

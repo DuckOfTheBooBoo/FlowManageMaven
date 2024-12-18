@@ -1,4 +1,4 @@
-package com.test;
+package com.unittest;
 
 import com.util.HashUtil;
 import org.junit.After;

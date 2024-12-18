@@ -1,4 +1,4 @@
-package com.test;
+package com.unittest;
 
 import com.controller.bean.AuthBean;
 import com.controller.bean.ViewProjectBean;
@@ -124,7 +124,7 @@ public class ViewProjectBeanTest {
     }
 
     @Test
-    public void testLoadProjectProjectNotFound() {
+    public void testLoadProjectNotFound() {
         // Arrange
         User mockUser = mock(User.class);
         when(mockAuthBean.getLoggedInUser()).thenReturn(mockUser);
@@ -144,7 +144,7 @@ public class ViewProjectBeanTest {
     }
 
     @Test
-    public void testLoadProjectProjectFoundLoadProjectAndTasks() {
+    public void testLoadProjectFoundLoadProjectAndTasks() {
         // Arrange
         User mockUser = mock(User.class);
         Project mockProject = mock(Project.class);
@@ -350,8 +350,8 @@ public class ViewProjectBeanTest {
         Status onGoing = mock(Status.class);
         Status done = mock(Status.class);
 
-        onGoing.setId(1);
-        done.setId(2);
+        when(onGoing.getId()).thenReturn(1);
+        when(done.getId()).thenReturn(2);
 
         when(mockTask1.getStatus()).thenReturn(onGoing);
         when(mockTask2.getStatus()).thenReturn(onGoing);
@@ -374,8 +374,8 @@ public class ViewProjectBeanTest {
         Status onGoing = mock(Status.class);
         Status done = mock(Status.class);
 
-        onGoing.setId(1);
-        done.setId(2);
+        when(onGoing.getId()).thenReturn(1);
+        when(done.getId()).thenReturn(2);
 
         when(mockTask1.getStatus()).thenReturn(onGoing);
         when(mockTask2.getStatus()).thenReturn(onGoing);

@@ -1,4 +1,4 @@
-package com.test;
+package com.unittest;
 
 import com.controller.bean.UtilBean;
 import com.model.pojo.*;
@@ -21,10 +21,6 @@ public class UtilBeanTest {
 
     @After
     public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void getRemainingTime() {
     }
 
     @Test

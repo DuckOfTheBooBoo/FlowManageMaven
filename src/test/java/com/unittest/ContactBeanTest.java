@@ -1,4 +1,4 @@
-package com.test;
+package com.unittest;
 
 import com.controller.bean.AuthBean;
 import com.controller.bean.ContactBean;
@@ -15,14 +15,11 @@ import org.mockito.MockitoAnnotations;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
 
 public class ContactBeanTest {
 

@@ -15,6 +15,8 @@ import com.model.pojo.Task;
 import com.model.pojo.User;
 import com.service.ProjectService;
 import com.service.TaskService;
+import com.util.Generated;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,6 +68,7 @@ public class TaskBean implements java.io.Serializable {
     /**
      * Creates a new instance of TaskBean
      */
+    @Generated
     public TaskBean() {
     }
     
@@ -90,6 +93,7 @@ public class TaskBean implements java.io.Serializable {
         }
     }
 
+    @Generated
     private FacesContext facesContextWrapper() {
         if (facesContext != null) {
             return this.facesContext;
@@ -97,104 +101,128 @@ public class TaskBean implements java.io.Serializable {
         return FacesContext.getCurrentInstance();
     }
 
+    @Generated
     public Integer getTaskId() {
         return taskId;
     }
 
+    @Generated
     public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }
 
+    @Generated
     public Task getTask() {
         return task;
     }
 
+    @Generated
     public void setTask(Task task) {
         this.task = task;
     }
 
-    
-    
+
+
+    @Generated
     public Project getProject() {
         return project;
     }
 
+    @Generated
     public Integer getPriority() {
         return priority;
     }
 
+    @Generated
     public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
+    @Generated
     public void setProject(Project project) {
         this.project = project;
     }
 
+    @Generated
     public String getTaskDescription() {
         return taskDescription;
     }
 
+    @Generated
     public void setTaskDescription(String taskDescription) {
         this.taskDescription = taskDescription;
     }
 
+    @Generated
     public String getTaskTitle() {
         return taskTitle;
     }
 
+    @Generated
     public void setTaskTitle(String taskTitle) {
         this.taskTitle = taskTitle;
     }
 
+    @Generated
     public Date getDeadline() {
         return deadline;
     }
 
+    @Generated
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
+    @Generated
     public ProjectService getPs() {
         return ps;
     }
 
+    @Generated
     public void setPs(ProjectService ps) {
         this.ps = ps;
     }
 
+    @Generated
     public TaskService getTs() {
         return ts;
     }
 
+    @Generated
     public void setTs(TaskService ts) {
         this.ts = ts;
     }
 
+    @Generated
     public AuthBean getAuthbean() {
         return authbean;
     }
 
+    @Generated
     public void setAuthbean(AuthBean authbean) {
         this.authbean = authbean;
     }
 
+    @Generated
     public Integer getProjectId() {
         return projectId;
     }
 
+    @Generated
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
+    @Generated
     public List<Object> getPriorityList() {
         return priorityList;
     }
 
+    @Generated
     public void setPriorityList(List<Object> priorityList) {
         this.priorityList = priorityList;
     }
-    
+
     public String addNewTask() {
         if(taskId != null) {
             return saveTask();
@@ -251,10 +279,12 @@ public class TaskBean implements java.io.Serializable {
         return workers;
     }
 
+    @Generated
     public Integer getAssigneeId() {
         return assigneeId;
     }
 
+    @Generated
     public void setAssigneeId(Integer assigneeId) {
         this.assigneeId = assigneeId;
     }

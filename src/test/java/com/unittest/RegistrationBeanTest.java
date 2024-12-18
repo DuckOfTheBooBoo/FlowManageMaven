@@ -1,4 +1,4 @@
-package com.test;
+package com.unittest;
 
 import com.controller.bean.RegistrationBean;
 import com.service.UserService;

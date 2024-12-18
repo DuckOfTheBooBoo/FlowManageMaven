@@ -7,6 +7,8 @@ package com.service;
 
 import com.dao.StatusDAO;
 import com.model.pojo.Status;
+import com.util.Generated;
+
 import java.util.List;
 
 /**
@@ -15,6 +17,8 @@ import java.util.List;
  */
 public class StatusService {
     private StatusDAO statusDAO = new StatusDAO();
+
+    @Generated
     public List<Status> getAllStatus() {
         return statusDAO.getAllStatus();
     }

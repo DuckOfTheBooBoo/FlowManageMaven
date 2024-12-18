@@ -76,7 +76,6 @@ public class AuthBean implements Serializable {
         return FacesContext.getCurrentInstance();
     }
 
-    @Generated
     public String login() {
         Optional<String> optEmail = Optional.ofNullable(email);
         Optional<String> optPassword = Optional.ofNullable(password);

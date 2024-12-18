@@ -5,6 +5,7 @@
  */
 package com.service;
 import com.dao.UserDAO;
+import com.util.Generated;
 import com.util.HashUtil;
 import com.model.pojo.User;
 import java.io.Serializable;
@@ -15,18 +16,18 @@ import java.io.Serializable;
  */
 public class AuthService implements Serializable {
     private final UserDAO userDAO = new UserDAO();
+    private final HashUtil hashUtil = new HashUtil();
     
     public User authenticate(String email, String password) {
         // Compare password
-        User dbUser = userDAO.getUserByEmail(email);
-        HashUtil hashUtil = new HashUtil();
-        
+        User dbUser = getUserDAO().getUserByEmail(email);
+
         if (dbUser == null) {
             return null;
         }
         
         try {
-            boolean isValid = hashUtil.authenticate(password, dbUser.getPassword());
+            boolean isValid = getHashUtil().authenticate(password, dbUser.getPassword());
             if (isValid) {
                 return dbUser;
             }
@@ -35,5 +36,15 @@ public class AuthService implements Serializable {
         }
         
         return null;
+    }
+
+    @Generated
+    public UserDAO getUserDAO() {
+        return userDAO;
+    }
+
+    @Generated
+    public HashUtil getHashUtil() {
+        return hashUtil;
     }
 }

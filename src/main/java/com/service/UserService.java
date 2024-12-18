@@ -6,6 +6,7 @@
 package com.service;
 
 import com.model.pojo.User;
+import com.util.Generated;
 import com.util.HashUtil;
 import com.dao.UserDAO;
 
@@ -14,13 +15,23 @@ import com.dao.UserDAO;
  * @author pc
  */
 public class UserService {
-    private final UserDAO userDAO = new UserDAO();
+    private UserDAO userDAO;
+    private HashUtil hashUtil;
+
+    public UserService() {
+        this(new UserDAO(), new HashUtil());
+    }
+
+    public UserService(UserDAO userDAO, HashUtil hashUtil) {
+        this.userDAO = userDAO;
+        this.hashUtil = hashUtil;
+    }
+
     public boolean createUser(String firstName, String lastName, String email, String password) {
         try {
-            HashUtil hashUtil = new HashUtil();
-            String hashedPassword = hashUtil.hash(password);
+            String hashedPassword = getHashUtil().hash(password);
             User newUser = new User(firstName, lastName, email, hashedPassword);
-            boolean isSuccess = userDAO.addUser(newUser);
+            boolean isSuccess = getUserDAO().addUser(newUser);
             if (!isSuccess) {
                 throw new Exception("Failed to create new user");
             }
@@ -42,5 +53,25 @@ public class UserService {
         }
         
         return user;
+    }
+
+    @Generated
+    public UserDAO getUserDAO() {
+        return userDAO;
+    }
+
+    @Generated
+    public HashUtil getHashUtil() {
+        return hashUtil;
+    }
+
+    @Generated
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    @Generated
+    public void setHashUtil(HashUtil hashUtil) {
+        this.hashUtil = hashUtil;
     }
 }

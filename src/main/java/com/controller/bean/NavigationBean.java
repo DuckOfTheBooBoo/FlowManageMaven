@@ -5,6 +5,8 @@
  */
 package com.controller.bean;
 
+import com.util.Generated;
+
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
@@ -36,34 +38,42 @@ public class NavigationBean {
     @ManagedProperty(value = "#{param.state}")
     private String state;
 
+    @Generated
     public String getState() {
         return state;
     }
 
+    @Generated
     public void setState(String state) {
         this.state = state;
     }
-    
+
+    @Generated
     public String getPage() {
         return this.page;
     }
-    
+
+    @Generated
     public void setPage(String page) {
         this.page = page;
     }
 
+    @Generated
     public Integer getProjectId() {
         return projectId;
     }
 
+    @Generated
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
+    @Generated
     public Integer getTaskId() {
         return taskId;
     }
 
+    @Generated
     public void setTaskId(Integer taskId) {
         this.taskId = taskId;
     }

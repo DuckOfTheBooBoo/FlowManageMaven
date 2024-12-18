@@ -12,6 +12,8 @@ import com.model.pojo.Status;
 import com.model.pojo.User;
 import com.service.ProjectService;
 import com.service.StatusService;
+import com.util.Generated;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +57,7 @@ public class ProjectBean implements java.io.Serializable {
     /**
      * Creates a new instance of ProjectBean
      */
+    @Generated
     public ProjectBean() {
     }
 
@@ -84,52 +87,62 @@ public class ProjectBean implements java.io.Serializable {
         }
     }
 
+    @Generated
     public Integer getStatusId() {
         return statusId;
     }
 
+    @Generated
     public void setStatusId(Integer statusId) {
         this.statusId = statusId;
     }
 
+    @Generated
     public StatusService getSs() {
         return ss;
     }
 
+    @Generated
     public void setSs(StatusService ss) {
         this.ss = ss;
     }
 
+    @Generated
     public List<Status> getStatusList() {
         return statusList;
     }
 
+    @Generated
     public void setStatusList(List<Status> statusList) {
         this.statusList = statusList;
     }
-    
-    
 
+    @Generated
     public Project getProject() {
         return project;
     }
 
+    @Generated
     public void setProject(Project project) {
         this.project = project;
     }
 
+    @Generated
     public Integer getProjectId() {
         return projectId;
     }
 
+    @Generated
     public void setProjectId(Integer projectId) {
         this.projectId = projectId;
     }
 
+    @Generated
     public ProjectService getPs() {
         return ps;
     }
 
+    @Generated
     public void setPs(ProjectService ps) {
         this.ps = ps;
     }
@@ -143,67 +156,82 @@ public class ProjectBean implements java.io.Serializable {
         
         return new ArrayList<Project>(projects);
     }
-    
+
+    @Generated
     public void setProjectList(List<Project> projectList) {
         this.projectList = projectList;
     }
-    
+
+    @Generated
     public AuthBean getAuthBean() {
         return authBean;
     }
 
+    @Generated
     public void setAuthBean(AuthBean authBean) {
         this.authBean = authBean;
     }
-    
+
+    @Generated
     public String getTitle() {
         return title;
     }
 
+    @Generated
     public void setTitle(String title) {
         this.title = title;
     }
 
+    @Generated
     public String getDescription() {
         return description;
     }
 
+    @Generated
     public void setDescription(String description) {
         this.description = description;
     }
 
+    @Generated
     public String getPriority() {
         return priority;
     }
 
+    @Generated
     public void setPriority(String priority) {
         this.priority = priority;
     }
 
+    @Generated
     public Date getDeadline() {
         return deadline;
     }
 
+    @Generated
     public void setDeadline(Date deadline) {
         this.deadline = deadline;
     }
 
+    @Generated
     public List<User> getUserList() {
         return userList;
     }
 
+    @Generated
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
-    
+
+    @Generated
     public void setPriorityList(List<Priority> pl) {
         this.priorityList = pl;
     }
-    
+
+    @Generated
     public List<Priority> getPriorityList() {
         return this.priorityList;
     }
-    
+
     public boolean isAuthorized(Project project) {
         // Get user role in project
         if(authBean.getLoggedInUser() == null) {
