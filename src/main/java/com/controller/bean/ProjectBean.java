@@ -47,13 +47,13 @@ public class ProjectBean implements java.io.Serializable {
     private List<Project> projectList;
 
     @Inject
-    private ProjectService ps;
+    private transient ProjectService ps;
 
     @Inject
     private transient StatusService ss;
     
     @Inject
-    private AuthBean authBean;  // Injected session-scoped bean
+    private transient AuthBean authBean;  // Injected session-scoped bean
     /**
      * Creates a new instance of ProjectBean
      */
