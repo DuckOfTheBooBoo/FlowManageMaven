@@ -27,7 +27,7 @@ public class AuthBean implements Serializable {
     private FacesContext facesContext;
 
     @Inject
-    private AuthService authService;
+    private transient AuthService authService;
 
     public AuthBean(AuthService authService, FacesContext fc) {
         this.authService = authService;

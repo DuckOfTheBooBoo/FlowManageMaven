@@ -38,14 +38,14 @@ public class ViewProjectBean implements java.io.Serializable {
     private FacesContext facesContext;
 
     @Inject
-    private ProjectService projectService;
+    private transient ProjectService projectService;
 
     @Inject
-    private TaskService taskService;
+    private transient TaskService taskService;
 
 
     @Inject
-    private AuthBean authBean;
+    private transient AuthBean authBean;
 
     // Test only
     public ViewProjectBean(AuthBean authBean, TaskService taskService, ProjectService projectService, FacesContext fc) {

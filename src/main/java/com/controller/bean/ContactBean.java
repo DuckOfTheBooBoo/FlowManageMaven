@@ -40,13 +40,13 @@ public class ContactBean implements java.io.Serializable {
     private FacesContext facesContext;
 
     @Inject
-    private UserService us;
+    private transient UserService us;
 
     @Inject
-    private ProjectService ps;
+    private transient ProjectService ps;
 
     @Inject
-    private AuthBean authBean;
+    private transient AuthBean authBean;
     
     /**
      * Creates a new instance of ContactBean

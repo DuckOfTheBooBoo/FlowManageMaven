@@ -48,13 +48,13 @@ public class TaskBean implements java.io.Serializable {
     private List<Object> priorityList;
 
     @Inject
-    private ProjectService ps;
+    private transient ProjectService ps;
 
     @Inject
-    private TaskService ts;
+    private transient TaskService ts;
 
     @Inject
-    private AuthBean authbean;
+    private transient AuthBean authbean;
 
     private FacesContext facesContext; // only used in testing
 
