@@ -10,6 +10,7 @@ import com.model.pojo.Task;
 import com.model.pojo.User;
 import com.util.Generated;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -24,7 +25,7 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "utilBean")
 @RequestScoped
-public class UtilBean {
+public class UtilBean implements Serializable {
     @Generated
     public UtilBean() {
     }

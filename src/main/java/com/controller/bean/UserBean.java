@@ -8,6 +8,7 @@ package com.controller.bean;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
+import java.io.Serializable;
 
 /**
  *
@@ -15,7 +16,7 @@ import javax.enterprise.context.RequestScoped;
  */
 @Named(value = "userBean")
 @RequestScoped
-public class UserBean {
+public class UserBean implements Serializable {
     
     /**
      * Creates a new instance of UserBean

@@ -8,10 +8,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import java.io.Serializable;
 
 @Named
 @RequestScoped
-public class RegistrationBean {
+public class RegistrationBean implements Serializable {
 
     private String firstName;
     private String lastName;
