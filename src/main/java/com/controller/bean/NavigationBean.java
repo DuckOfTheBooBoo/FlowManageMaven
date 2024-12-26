@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import java.io.Serializable;
 
 /**
  *
@@ -18,7 +19,7 @@ import javax.faces.bean.ManagedProperty;
  */
 @ManagedBean(name = "navigationBean", eager = true)
 @RequestScoped
-public class NavigationBean {
+public class NavigationBean implements Serializable {
 
     /**
      * Creates a new instance of NavigationBean

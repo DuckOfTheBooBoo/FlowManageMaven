@@ -50,7 +50,7 @@ public class ProjectBean implements java.io.Serializable {
     private ProjectService ps;
 
     @Inject
-    private StatusService ss;
+    private transient StatusService ss;
     
     @Inject
     private AuthBean authBean;  // Injected session-scoped bean
