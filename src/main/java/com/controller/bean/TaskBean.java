@@ -82,15 +82,21 @@ public class TaskBean implements java.io.Serializable {
         if (projectId != null) {
             this.project = ps.getProjectById(authbean.getLoggedInUser(), projectId);
         }
-        
-        if (taskId != null) {
-            this.task = ts.getTaskById(taskId);
-            taskTitle = this.task.getTitle();
-            taskDescription = this.task.getDescription();
-            deadline = this.task.getDeadline();
-            priority = this.task.getPriority();
-            this.assigneeId = this.task.getProjectWorker().getUser().getId();
+
+        if (taskId == null) {
+            return;
         }
+
+        this.task = ts.getTaskById(taskId);
+        if (this.task == null) {
+            return;
+        }
+
+        taskTitle = this.task.getTitle();
+        taskDescription = this.task.getDescription();
+        deadline = this.task.getDeadline();
+        priority = this.task.getPriority();
+        this.assigneeId = this.task.getProjectWorker().getUser().getId();
     }
 
     @Generated
@@ -255,7 +261,7 @@ public class TaskBean implements java.io.Serializable {
                 break;
             }
         }
-        if (assignee != null || assignee.getId() != null) {
+        if (assignee != null) {
             boolean isSuccessful = ts.saveTask(taskId, assignee, project, taskTitle, taskDescription, deadline, priority);
             if (isSuccessful) {
                 return "project?faces-redirect=true&amp;project_id="+projectId;

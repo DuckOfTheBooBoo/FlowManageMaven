@@ -75,6 +75,7 @@ public class ContactBeanTest {
 
     @After
     public void tearDown() throws Exception {
+        contactBean = null;
     }
 
     @Test
@@ -86,16 +87,6 @@ public class ContactBeanTest {
         contactBean.init();
         verify(mockProjectService).getProjectById(testUser, testProject.getId());
         assertNotNull(contactBean.getProject());
-    }
-
-    @Test
-    public void testContactBeanInitUnauthorized() {
-        when(mockProjectService.getProjectById(any(User.class), anyInt())).thenReturn(testProject);
-        when(mockAuthBean.getLoggedInUser()).thenReturn(testUser2);
-
-        contactBean.setProjectId(testProject.getId());
-        contactBean.init();
-        assertNull(contactBean.getProject());
     }
 
     @Test

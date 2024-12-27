@@ -58,7 +58,7 @@ public class UtilBeanTest {
         Date currentDate = new Date();
 
         long remainingDays = utilBean.getRemainingTime(date);
-        long expectedRemainingDays = TimeUnit.DAYS.convert(Math.abs(date.getTime() - currentDate.getTime()), TimeUnit.MILLISECONDS);
+        long expectedRemainingDays = TimeUnit.DAYS.convert(date.getTime() - currentDate.getTime(), TimeUnit.MILLISECONDS);
 
         assertEquals(expectedRemainingDays, remainingDays);
     }

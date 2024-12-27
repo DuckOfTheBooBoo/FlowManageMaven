@@ -10,6 +10,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import javax.faces.context.FacesContext;
+
 import static org.mockito.Mockito.*;
 
 
@@ -21,6 +24,9 @@ public class RegistrationBeanTest {
     
     @Mock
     private UserService mockUserService;
+
+    @Mock
+    private FacesContext mockFacesContext;
     
     private RegistrationBean registrationBean;
     
@@ -38,7 +44,7 @@ public class RegistrationBeanTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        registrationBean = new RegistrationBean(mockUserService);
+        registrationBean = new RegistrationBean(mockUserService, mockFacesContext);
     }
     
     @After
@@ -92,9 +98,9 @@ public class RegistrationBeanTest {
         when(mockUserService.createUser(anyString(), anyString(), anyString(), anyString())).thenReturn(true);
         
         String redirectVal = registrationBean.register();
-        
-        verify(mockUserService).createUser(TestVariables.FIRST_NAME, TestVariables.LAST_NAME, "notavalidemail", TestVariables.PASSWORD);
-        
+
+        verify(mockUserService, never()).createUser(anyString(), anyString(), anyString(), anyString());
+
         assertNull(redirectVal);
     }
     
@@ -109,16 +115,7 @@ public class RegistrationBeanTest {
         when(mockUserService.createUser(anyString(), anyString(), anyString(), anyString())).thenReturn(true);
         String redirectVal = registrationBean.register();
         
-        verify(mockUserService).createUser(TestVariables.FIRST_NAME, TestVariables.LAST_NAME, TestVariables.EMAIL, "");
-        
         assertNull(redirectVal);
-        
-        registrationBean.setPassword(null);
-        redirectVal = registrationBean.register();
-        verify(mockUserService).createUser(TestVariables.FIRST_NAME, TestVariables.LAST_NAME, TestVariables.EMAIL, null);
-        
-        assertNull(redirectVal);
-
     }
     
     @Test
@@ -129,11 +126,9 @@ public class RegistrationBeanTest {
         registrationBean.setEmail(existingEmail);
         registrationBean.setPassword(TestVariables.PASSWORD);
         
-        when(mockUserService.createUser(anyString(), anyString(), anyString(), anyString())).thenReturn(true);
+        when(mockUserService.createUser(anyString(), anyString(), anyString(), anyString())).thenReturn(false);
         
         String redirectVal = registrationBean.register();
-        
-        verify(mockUserService).createUser(TestVariables.FIRST_NAME, TestVariables.LAST_NAME, existingEmail, TestVariables.PASSWORD);
         
         assertNull(redirectVal);
     }

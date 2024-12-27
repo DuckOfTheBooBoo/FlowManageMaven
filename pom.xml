@@ -3,8 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com</groupId>
   <artifactId>FlowManageMaven</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
+  <version>1</version>
   <name>FlowManageMaven</name>
   <properties>
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -39,6 +39,11 @@
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>4.3.11.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
     </dependency>
     <dependency>
       <groupId>xml-apis</groupId>
