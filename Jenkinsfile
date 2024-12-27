@@ -9,7 +9,6 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Membersihkan dan membangun project Maven
         		withMaven(maven: 'Maven3', traceability: true) {
                     bat 'mvn test'
             		bat 'mvn jacoco:report'
