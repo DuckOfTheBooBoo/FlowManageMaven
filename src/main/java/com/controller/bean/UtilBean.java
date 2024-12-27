@@ -32,7 +32,7 @@ public class UtilBean implements Serializable {
     
     public long getRemainingTime(Date date) {
         Date currentDate = new Date();
-        long diffInMil = Math.abs(date.getTime() - currentDate.getTime());
+        long diffInMil = date.getTime() - currentDate.getTime();
         return TimeUnit.DAYS.convert(diffInMil, TimeUnit.MILLISECONDS);
     }
     

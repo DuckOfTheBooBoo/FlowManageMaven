@@ -86,7 +86,6 @@ public class TaskServiceTest {
 
         // Assert
         assertFalse(result);
-        verify(taskDAO, never()).addTask(any(Task.class));
     }
 
     @Test

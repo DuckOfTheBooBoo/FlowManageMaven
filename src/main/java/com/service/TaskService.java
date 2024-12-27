@@ -27,7 +27,13 @@ public class TaskService {
     public boolean addNewTask(User user, Project project, String title, String description, Date deadline, int priority) {
         Status onGoingStat = getStatusDAO().getStatusById(1);
         ProjectWorker pw = user.getProjectWorkers().stream().filter(pws -> pws.getProject().getId() == project.getId() && pws.getUser().getId() == user.getId()).findFirst().orElse(null);
+
+        if(pw == null) {
+            return false;
+        }
+
         Task newTask = new Task(pw, onGoingStat, title, description, priority, deadline);
+
         return getTaskDAO().addTask(newTask);
     }
     

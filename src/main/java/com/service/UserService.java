@@ -31,6 +31,13 @@ public class UserService {
         try {
             String hashedPassword = getHashUtil().hash(password);
             User newUser = new User(firstName, lastName, email, hashedPassword);
+
+            User user = getUserDAO().getUserByEmail(email);
+
+            if(user != null) {
+                return false;
+            }
+
             boolean isSuccess = getUserDAO().addUser(newUser);
             if (!isSuccess) {
                 throw new Exception("Failed to create new user");
