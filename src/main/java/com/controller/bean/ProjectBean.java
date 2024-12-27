@@ -148,6 +148,11 @@ public class ProjectBean implements java.io.Serializable {
     }
     
     public List<Project> getProjectList() {
+
+        if (authBean.getLoggedInUser() == null) {
+            return new ArrayList<Project>();
+        }
+
         Set<Project> projects = ps.getProjects(getAuthBean().getLoggedInUser());        
         
         if (projects == null) {
@@ -247,6 +252,14 @@ public class ProjectBean implements java.io.Serializable {
     }
     
     public String updateProject(Integer projectId) {
+
+        User currentUser = authBean.getLoggedInUser();
+
+        ProjectWorker currentPw = project.getProjectWorkers().stream().filter(p -> p.getUser().getId() == currentUser.getId()).findFirst().orElse(null);
+        if (!Objects.equals(currentPw.getRole(), "manager")) {
+            return null;
+        }
+
         Project targetProject = ps.getProjectById(authBean.getLoggedInUser(), projectId);
         statusList = ss.getAllStatus();
         Status targetStatus = statusList.stream().filter(s -> Objects.equals(s.getId(), Integer.valueOf(statusId))).findFirst().orElse(null);

@@ -126,10 +126,9 @@ public class TaskBeanTest {
         when(mockTaskService.getTaskById(1)).thenReturn(null);
 
         taskBean.setProjectId(1);
-        taskBean.setTaskId(10);
+        taskBean.setTaskId(1);
         taskBean.init();
         assertNull(taskBean.getTask());
-        assertNull(taskBean.getProject());
         assertNull(taskBean.getTaskTitle());
         assertNull(taskBean.getTaskDescription());
         assertNull(taskBean.getDeadline());

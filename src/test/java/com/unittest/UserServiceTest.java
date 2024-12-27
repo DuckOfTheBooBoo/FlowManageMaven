@@ -64,6 +64,7 @@ public class UserServiceTest {
     public void testCreateUserExistingEmail() {
         when(mockHashUtil.hash(TestVariables.PASSWORD)).thenReturn("hashedpassword");
         when(mockUserDAO.addUser(any(User.class))).thenReturn(true); // behavior mocked from integration test
+        when(mockUserDAO.getUserByEmail(anyString())).thenReturn(mock(User.class));
 
 
         boolean isSuccessful = userService.createUser(TestVariables.FIRST_NAME, TestVariables.LAST_NAME, TestVariables.EMAIL, TestVariables.PASSWORD);

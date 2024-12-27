@@ -65,10 +65,6 @@ public class ContactBean implements java.io.Serializable {
 
     @PostConstruct
     public void init() {
-        if(authBean.getLoggedInUser() == null) {
-            System.err.println("UNAUTHORIZED");
-        }
-        
         if (projectId != null) {
             this.project = ps.getProjectById(authBean.getLoggedInUser(), projectId);
             
@@ -144,6 +140,14 @@ public class ContactBean implements java.io.Serializable {
     public String addUserToProject() {
         if(userEmail == null || userEmail.isEmpty()) {
             facesContextWrapper().addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "E-mail field is empty.", null));
+            return null;
+        }
+
+        User currentUser = authBean.getLoggedInUser();
+        // Check if user has the authority to add user to a project
+        ProjectWorker currentUserPw = this.project.getProjectWorkers().stream().filter(p -> Objects.equals(p.getUser().getId(), currentUser.getId())).findFirst().orElse(null);
+        if (currentUserPw == null || !currentUserPw.getRole().equals("manager")) {
+            facesContextWrapper().addMessage("contact-form", new FacesMessage(FacesMessage.SEVERITY_ERROR, "You don't have the authority to add user to a project.", null));
             return null;
         }
         
