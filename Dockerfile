@@ -20,7 +20,7 @@ ENV ADMIN_USER admin
 
 RUN echo "AS_ADMIN_PASSWORD=$ADMIN_PASSWORD" > /opt/payara/password.txt
 
-COPY ./startup-script.sh /opt/payara/scripts/
+COPY --from=builder /app/startup-script.sh /opt/payara/scripts/startup-script.sh
 
 # Expose the desired port
 EXPOSE 8080
