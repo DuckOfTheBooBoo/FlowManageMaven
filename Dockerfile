@@ -1,12 +1,21 @@
 # Step 1: Use an official Maven image to build the project
+FROM maven:latest AS maven-builder
+WORKDIR /app
+COPY pom.xml ./
+COPY src/main ./src/main
+COPY src/test ./src/test
+
+RUN mvn dependency:go-offline -B -DskipTests
+
+# Build
 FROM maven:latest AS builder
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Clone the repository
-ARG REPO_URL
-RUN git clone $REPO_URL .
+# Copy cached dependencies
+COPY --from=maven-builder /root/.m2 /root/.m2
+COPY . .
 
 # Build the project with Maven
 RUN mvn clean package -DskipTests
@@ -26,7 +35,7 @@ COPY --from=builder /app/startup-script.sh /opt/payara/scripts/startup-script.sh
 EXPOSE 8080
 
 # Copy the WAR file from the Maven build stage to GlassFish autodeploy directory
-COPY --from=builder /app/target/FlowManageMaven-1.0-SNAPSHOT.war $DEPLOY_DIR/FlowManageMaven.war
+COPY --from=builder /app/target/FlowManageMaven-1.war $DEPLOY_DIR/FlowManageMaven.war
 
 # Run Payara server on port 8081
 CMD ["/opt/payara/scripts/startup-script.sh"]
