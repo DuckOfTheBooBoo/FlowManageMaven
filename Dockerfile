@@ -17,5 +17,8 @@ EXPOSE 8100
 # Copy the WAR file from the Maven build stage to GlassFish autodeploy directory
 COPY ./target/FlowManageMaven-1.war $DEPLOY_DIR/FlowManageMaven.war
 
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 CMD \
+  ./asadmin --user=${AS_ADMIN_USER} --passwordfile=/opt/payara/passwordfile list-applications | grep -q "FlowManageMaven" || exit 1
+
 # Run Payara server on port 8080
 CMD ["bash", "/opt/payara/scripts/startup-script.sh"]
