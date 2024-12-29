@@ -39,6 +39,7 @@ pipeline {
     post {
         always {
             archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+            recordCoverage qualityGates: [[criticality: 'NOTE', integerThreshold: 73, metric: 'MODULE', threshold: 73.0]], tools: [[parser: 'JACOCO']]
         }
         success {
             echo 'Build berhasil!'
