@@ -4,6 +4,8 @@
 echo "Starting Payara domain..."
 asadmin start-domain
 
+asadmin --user=admin --passwordfile=/opt/payara/password.txt set server-config.network-config.network-listeners.network-listener.http-listener-1.port=8100
+
 # Wait for the domain to be fully started
 echo "Waiting for Payara to be ready..."
 until asadmin list-domains | grep "production running"; do

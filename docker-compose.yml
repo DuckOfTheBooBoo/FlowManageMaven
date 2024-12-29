@@ -16,7 +16,7 @@ services:
         build:
           context: .
         ports:
-            - "8080:8080"
+            - "8100:8100"
             - "4848:4848"
         depends_on:
             db:

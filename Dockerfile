@@ -32,7 +32,7 @@ RUN echo "AS_ADMIN_PASSWORD=$ADMIN_PASSWORD" > /opt/payara/password.txt
 COPY --from=builder /app/startup-script.sh /opt/payara/scripts/startup-script.sh
 
 # Expose the desired port
-EXPOSE 8080
+EXPOSE 8100
 
 # Copy the WAR file from the Maven build stage to GlassFish autodeploy directory
 COPY --from=builder /app/target/FlowManageMaven-1.war $DEPLOY_DIR/FlowManageMaven.war
