@@ -25,6 +25,10 @@ public class RegistrationBean implements Serializable {
     private FacesContext facesContext;
 
     @Inject
+    public RegistrationBean(UserService userService) {
+        this.userService = userService;
+    }
+
     public RegistrationBean(UserService userService, FacesContext facesContext) {
         this.userService = userService;
         this.facesContext = facesContext;
