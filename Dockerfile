@@ -9,6 +9,8 @@ RUN echo "AS_ADMIN_PASSWORD=$ADMIN_PASSWORD" > /opt/payara/password.txt
 
 COPY ./startup-script.sh /opt/payara/scripts/startup-script.sh
 
+RUN sed -i 's/\r//' /opt/payara/scripts/startup-script.sh
+
 # Expose the desired port
 EXPOSE 8100
 
@@ -16,4 +18,4 @@ EXPOSE 8100
 COPY ./target/FlowManageMaven-1.war $DEPLOY_DIR/FlowManageMaven.war
 
 # Run Payara server on port 8080
-CMD ["/opt/payara/scripts/startup-script.sh"]
+CMD ["bash", "/opt/payara/scripts/startup-script.sh"]
