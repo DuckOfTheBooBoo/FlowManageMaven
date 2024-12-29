@@ -14,19 +14,21 @@ pipeline {
                 }
             }
         }
-        stage('Package') {
+        stage('Build Artifact') {
             steps {
-                bat 'mvn package'
+                withMaven(maven: 'Maven3', traceability: true) {
+                    bat 'mvn package'
+                }
             }
         }
-        stage('Docker Compose Build') {
+        stage('Build Docker Image') {
             steps {
                 echo 'Building Docker Compose services...'
                 bat 'docker compose build --no-cache'
                 bat 'docker images' // Debugging images
             }
         }
-        stage('Docker Compose Up') {
+        stage('Deploy') {
             steps {
                 echo 'Starting Docker Compose services...'
                 bat 'docker compose up -d --build'
