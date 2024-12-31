@@ -10,7 +10,7 @@ services:
         timeout: 5s
         retries: 3
       environment:
-        MARIADB_ROOT_PASSWORD: password # Change this to a secure password
+        MARIADB_ROOT_PASSWORD: GoodTime221
         MARIADB_DATABASE: flow_manage
     app:
         build:
